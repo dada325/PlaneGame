@@ -17,12 +17,25 @@ public class MyGameFrame extends JFrame {
 
     @Override
     public void paint(Graphics g) {
-
-        g.setColor(Color.pink);
-        g.fillRect(100,100,300,300);
-        //g.drawString("Start",200,200);
+        
     }
 
+// repeat drawing background
+    class PaintThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                System.out.println("windows redraw");
+                repaint();
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
     /**
      * initialize the windows
      */
@@ -39,6 +52,8 @@ public class MyGameFrame extends JFrame {
                 System.exit(0);
             }
         });
+
+        new PaintThread().start();
 
     }
 
